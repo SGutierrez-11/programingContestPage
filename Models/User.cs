@@ -13,5 +13,7 @@ namespace programingContestPage.Models
         [DataType(DataType.DateTime)]
         public DateTime Birthday { get; set; }
 
+       
+
     }
 }
