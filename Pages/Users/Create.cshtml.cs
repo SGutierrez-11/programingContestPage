@@ -25,6 +25,8 @@ namespace programingContestPage.Pages.Users
             return Page();
         }
 
+        public bool Status { get; set; }
+
         [BindProperty]
         public User User { get; set; }
 
@@ -35,11 +37,28 @@ namespace programingContestPage.Pages.Users
             {
                 return Page();
             }
+            Status = false;
+            bool status = false;
+			foreach (var item in _context.User)
+			{
+                if (item.UserName==User.UserName) {
+                    status = true;
+                }
+			}
 
-            _context.User.Add(User);
-            await _context.SaveChangesAsync();
+            if (!status)
+            {
+                _context.User.Add(User);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("../Account/Login");
+            }
+            else {
+                Status = true;
+                return Page();
+            }
+            
 
-            return RedirectToPage("./Index");
+            
         }
     }
 }
